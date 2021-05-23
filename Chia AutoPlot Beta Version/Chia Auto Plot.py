@@ -21,7 +21,7 @@ def print_info():
     print(f'{bcolors.HEADER}Now you can setup Every thing!, Let\'t Start!!{bcolors.ENDC}')
     print(f'\nYou can Follow our New Version at {bcolors.WARNING}github.com/PKGzGMTH/chia-auto-plot' + bcolors.ENDC)
 
-def chia_get_version():
+def chia_get_path():
     # Search Version Chia
     chia_directory = os.listdir(
         os.environ['USERPROFILE'] + "\\AppData\\Local\\chia-blockchain\\")
@@ -263,7 +263,8 @@ def get_delay_to_creat_setup():
           str(input_delay_time) + bcolors.ENDC)
 
 def start_create_plot():
-
+    
+    chia_get_path()
     get_K_size_setup()
     get_Bucket_setup()
     get_threads_setup()
@@ -276,13 +277,14 @@ def start_create_plot():
 
     for i in range(plot_range):
 
-        terminal_command = f'start /wait cmd /c {chia}'
-        #terminal_command = f'start powershell.exe -NoExit {chia}'
-
-        plot_command = terminal_command + \
-            f' plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t {temp_list[i]} -d {final_dir}'
+        #terminal_command = f'start cmd /k "{chia}"'
+        terminal_command = f'start powershell.exe -NoExit "{chia}"'
+        
+        # powershell
+        plot_command = terminal_command + f' plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t \'{temp_list[i]}\' -d \'{final_dir}\''
+        
         print(plot_command)
-        #subprocess.call(plot_command, shell=True)
+        subprocess.call(plot_command, shell=True)
         i += 1
         time.sleep(1200)
 
@@ -291,5 +293,4 @@ def start_create_plot():
 
 # Main Program #
 print_info()
-chia_get_version()
 start_create_plot()
