@@ -230,7 +230,7 @@ def get_threads_setup():
     print(bcolors.OKGREEN + 'Set Threads for Plotting : ' +
           str(input_threads) + ' per plot' + bcolors.ENDC)
 
-### Not Fix
+### in Develop
 def get_delay_to_creat_setup():
     print(
         f'\nPlease Enter time of {bcolors.OKGREEN}delay to create new Plot{bcolors.ENDC} [Default is 15 minute]')
@@ -277,11 +277,14 @@ def start_create_plot():
 
     for i in range(plot_range):
 
-        #terminal_command = f'start cmd /k "{chia}"'
-        terminal_command = f'start powershell.exe -NoExit "{chia}"'
+        terminal_command = f'start cmd /k'
+        #terminal_command = f'start powershell.exe -NoExit'
         
+        # cmd.exe
+        plot_command = terminal_command + f' ""{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t "{temp_list[i]}" -d "{final_dir}""'
+
         # powershell
-        plot_command = terminal_command + f' plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t \'{temp_list[i]}\' -d \'{final_dir}\''
+        #plot_command = terminal_command + f' "{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t \'{temp_list[i]}\' -d \'{final_dir}\''
         
         print(plot_command)
         subprocess.call(plot_command, shell=True)
