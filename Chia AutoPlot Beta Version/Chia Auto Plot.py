@@ -2,6 +2,8 @@ import subprocess
 import datetime
 import os
 import time
+from datetime import datetime
+
 os.system('cls')
 temp_list = []
 
@@ -19,7 +21,7 @@ class bcolors:
 def print_info():
     print(f'{bcolors.OKGREEN}Auto Create Plot with CMD.exe [ Version 0.1-cmd ]{bcolors.ENDC}')
     print(f'{bcolors.HEADER}Now you can setup Every thing!, Let\'t Start!!{bcolors.ENDC}')
-    print(f'\nYou can Follow our New Version at {bcolors.WARNING}github.com/PKGzGMTH/chia-auto-plot' + bcolors.ENDC)
+    print(f'\nYou can Follow our Update at {bcolors.WARNING}github.com/PKGzGMTH/chia-auto-plot' + bcolors.ENDC)
 
 def chia_get_path():
     # Search Version Chia
@@ -230,23 +232,22 @@ def get_threads_setup():
     print(bcolors.OKGREEN + 'Set Threads for Plotting : ' +
           str(input_threads) + ' per plot' + bcolors.ENDC)
 
-### in Develop
-def get_delay_to_creat_setup():
+def get_delay_to_create_setup():
     print(
-        f'\nPlease Enter time of {bcolors.OKGREEN}delay to create new Plot{bcolors.ENDC} [Default is 15 minute]')
+        f'\nPlease Enter Second of {bcolors.OKGREEN}Delay to create new Plot{bcolors.ENDC} [Default is 900 Second]')
     global delay_time
-    delay_time = '-u '
     input_delay_time = input()
+
     if input_delay_time == '':
-        input_delay_time = int(128)
+        input_delay_time = int(900)
 
     delay_time_state_error = False
     try:
         input_delay_time = int(input_delay_time)
 
-        if input_delay_time < 32 or input_delay_time > 128:
+        if input_delay_time < 0 :
             print(
-                bcolors.FAIL + 'Error, Please enter a number of delay_time [32-128]' + bcolors.ENDC)
+                bcolors.FAIL + 'Error, Please enter a number of delay_time [least is 0 Second]' + bcolors.ENDC)
             input(bcolors.FAIL + "Press Enter to continue..." + bcolors.ENDC)
             delay_time_state_error = True
             os.close()
@@ -255,12 +256,20 @@ def get_delay_to_creat_setup():
         if delay_time_state_error == True:
             os.close()
         print(bcolors.FAIL +
-              'Error, Please enter Only a number of delay time' + bcolors.ENDC)
+              'Error, Please enter Only a number Second delay time [Second]' + bcolors.ENDC)
         input(bcolors.FAIL + "Press Enter to continue..." + bcolors.ENDC)
         exit()
-    delay_time += str(input_delay_time)
-    print(bcolors.OKGREEN + 'Setup number Bucket : ' +
-          str(input_delay_time) + bcolors.ENDC)
+    delay_time = input_delay_time
+    print(bcolors.OKGREEN + 'Setup Delay time to create new Plot : ' +
+          str(input_delay_time) + ' Second' + bcolors.ENDC)
+
+def confirm_start():
+    print(f'\nEnter "{bcolors.WARNING}Confirm{bcolors.ENDC}" to Start Plotting')
+    if input() != 'Confirm':
+        print(
+                bcolors.FAIL + 'Error, You didn\'t Enter Confirm please try again' + bcolors.ENDC)
+        input(bcolors.FAIL + "Press Enter to continue..." + bcolors.ENDC)
+        os.close()
 
 def start_create_plot():
     
@@ -271,9 +280,10 @@ def start_create_plot():
     get_ram_setup()
     get_plot_directory_setup()
     get_plot_count_setup()
-    #get_delay_to_creat_setup()
+    get_delay_to_create_setup()
+    confirm_start()
 
-    print(bcolors.FAIL + '\nplease don\'t close this windows' + bcolors.ENDC)
+    print(f'{bcolors.FAIL}\nplease don\'t close this windows{bcolors.ENDC}')
 
     for i in range(plot_range):
 
@@ -286,10 +296,12 @@ def start_create_plot():
         # powershell
         #plot_command = terminal_command + f' "{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t \'{temp_list[i]}\' -d \'{final_dir}\''
         
-        print(plot_command)
+        timeNow = datetime.now().strftime("%H:%M:%S")
+        print(f'{bcolors.OKGREEN}[ {str(timeNow)} ]{bcolors.ENDC} ' + plot_command)
         subprocess.call(plot_command, shell=True)
         i += 1
-        time.sleep(1200)
+        if i >= plot_range: continue
+        else: time.sleep(delay_time)
 
     print(bcolors.OKGREEN + 'You can close this windows now' + bcolors.ENDC)
     input(bcolors.OKGREEN + "Press Enter to continue..." + bcolors.ENDC)
