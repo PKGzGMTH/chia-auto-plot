@@ -17,3 +17,6 @@ def mainFunction():
         time.sleep(120)
 
 mainFunction()
+
+# clear swp command
+# sudo apt-get purge dphys-swapfile dphys-config 
