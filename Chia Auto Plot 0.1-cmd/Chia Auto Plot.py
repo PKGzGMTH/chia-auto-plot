@@ -146,15 +146,15 @@ def get_plot_directory_setup():
 
     if plot_range <= 0:
         print(bcolors.FAIL +
-              'Error, Please enter a number of Tempolary Directory [Least is 1]' + bcolors.ENDC)
+              'Error, Please enter a number of Temporary Directory [Least is 1]' + bcolors.ENDC)
         input(bcolors.FAIL + "Press Enter to continue..." + bcolors.ENDC)
         os.close()
 
     for i in range(plot_range):
-        print('\nplease select Tempolary directory of plot ' + str(i+1))
+        print('\nplease select Temporary directory of plot ' + str(i+1))
         input_ = str(input())
         temp_list.append(input_)
-        print(bcolors.OKGREEN + 'Set Tempolary directory of plot ' +
+        print(bcolors.OKGREEN + 'Set Temporary directory of plot ' +
               str(i+1) + ' in ' + input_ + ' Succesfully' + bcolors.ENDC)
         print()
         i += 1
