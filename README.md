@@ -23,6 +23,6 @@ Warning! when you Extract Chia.Auto.Plot You need to allow this threat in Window
 - Enter count of Tempolary Directory
 - in Temporary and Final Directory setting you need to copy folder location in File Explorer and paste in this program
 - Enter number of plot count and Delay time to start Create new plot
-- Enter "Confirm" to create plot, Enjoy!
+- Enter "Confirm" to create plot, Good luck!
 
 ![alt text](https://github.com/PKGzGMTH/chia-auto-plot/blob/master/Example.PNG)
