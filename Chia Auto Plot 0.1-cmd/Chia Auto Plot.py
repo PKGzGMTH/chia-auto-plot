@@ -18,6 +18,9 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def timeNow():
+    return str(datetime.now().strftime("%H:%M:%S"))
+
 def print_info():
     print(f'{bcolors.OKGREEN}Auto Create Plot with CMD.exe [ Version 0.1-cmd ]{bcolors.ENDC}')
     print(f'{bcolors.HEADER}Now you can setup Every thing!, Let\'t Start!!{bcolors.ENDC}')
@@ -25,8 +28,7 @@ def print_info():
 
 def chia_get_path():
     # Search Version Chia
-    chia_directory = os.listdir(
-        os.environ['USERPROFILE'] + "\\AppData\\Local\\chia-blockchain\\")
+    chia_directory = os.listdir(f"C:\\Users\\{os.getlogin()}\\AppData\\Local\\chia-blockchain\\")
     chia_version = ""
     for chia_data in chia_directory:
         if "app-" in chia_data:
@@ -271,6 +273,9 @@ def confirm_start():
         input(bcolors.FAIL + "Press Enter to continue..." + bcolors.ENDC)
         os.close()
 
+def create_plot_log():
+    return f'| tee -filepath C:\\Users\\{os.getlogin()}\\.chia\\mainnet\\plotter\\Chia-Auto-Plot-{str(datetime.now().strftime("%d-%m-%y-%H:%M:%S"))}.txt'
+
 def start_create_plot():
     
     chia_get_path()
@@ -282,6 +287,7 @@ def start_create_plot():
     get_plot_count_setup()
     get_delay_to_create_setup()
     confirm_start()
+    create_plot_log
 
     print(f'{bcolors.FAIL}\nplease don\'t close this windows{bcolors.ENDC}')
 
@@ -291,14 +297,13 @@ def start_create_plot():
         #terminal_command = f'start powershell.exe -NoExit'
         
         # cmd.exe
-        plot_command = terminal_command + f' ""{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t "{temp_list[i]}" -d "{final_dir}""'
+        plot_command = terminal_command + f' ""{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t "{temp_list[i]}" -d "{final_dir}" {create_plot_log()}"'
 
         # powershell
         #plot_command = terminal_command + f' "{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t \'{temp_list[i]}\' -d \'{final_dir}\''
         
-        timeNow = datetime.now().strftime("%H:%M:%S")
-        print(f'{bcolors.OKGREEN}[ {str(timeNow)} ]{bcolors.ENDC} ' + plot_command)
-        subprocess.call(plot_command, shell=True)
+        print(f'{bcolors.OKGREEN}[ {timeNow()} ]{bcolors.ENDC} ' + plot_command)
+        #subprocess.call(plot_command, shell=True)
         i += 1
         if i >= plot_range: continue
         else: time.sleep(delay_time)
