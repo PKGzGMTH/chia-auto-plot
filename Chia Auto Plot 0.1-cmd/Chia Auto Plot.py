@@ -141,8 +141,14 @@ def get_ram_setup():
     print(bcolors.OKGREEN + 'Setup Ram for plotting ' +
           str(input_ram) + ' per plot' + bcolors.ENDC)
 
+def get_pool_key():
+    print(f'\nPlease Enter {bcolors.WARNING}the Pool Key{bcolors.ENDC} (if you don\'t have the pool key {bcolors.OKGREEN}press Enter{bcolors.ENDC})')
+    global pool_key
+    pool_key = input()
+    if pool_key != '' : pool_key = f' -p {pool_key}'
+
 def get_plot_directory_setup():
-    print('\nHow many number of plot you want to plotting in same time? (Number of Queue)')
+    print(f'\nHow many number of plot you want to plotting in same time? {bcolors.OKGREEN}(Number of Queue){bcolors.ENDC}')
     global plot_range
     plot_range = int(input())
 
@@ -153,7 +159,7 @@ def get_plot_directory_setup():
         os.close()
 
     for i in range(plot_range):
-        print('\nplease select Temporary directory of plot ' + str(i+1))
+        print(f'\nplease select {bcolors.OKGREEN}Temporary directory of plot{bcolors.ENDC} ' + str(i+1))
         input_ = str(input())
         temp_list.append(input_)
         print(bcolors.OKGREEN + 'Set Temporary directory of plot ' +
@@ -166,7 +172,7 @@ def get_plot_directory_setup():
 
     # Final Directory Setting
     global final_dir
-    print('\nplease select Final directory')
+    print(f'\nplease select {bcolors.OKGREEN}Final directory{bcolors.ENDC}')
     final_dir = str(input())
 
 def get_plot_count_setup():
@@ -274,7 +280,7 @@ def confirm_start():
         os.close()
 
 def create_plot_log():
-    return f'| tee -filepath C:\\Users\\{os.getlogin()}\\.chia\\mainnet\\plotter\\Chia-Auto-Plot-{str(datetime.now().strftime("%d-%m-%y-%H:%M:%S"))}.txt'
+    return f'| tee C:\\Users\\{os.getlogin()}\\.chia\\mainnet\\plotter\\Chia-Auto-Plot-{str(datetime.now().strftime("%d-%m-%yT%H-%M-%S"))}.txt'
 
 def start_create_plot():
     
@@ -283,6 +289,7 @@ def start_create_plot():
     get_Bucket_setup()
     get_threads_setup()
     get_ram_setup()
+    get_pool_key()
     get_plot_directory_setup()
     get_plot_count_setup()
     get_delay_to_create_setup()
@@ -293,17 +300,17 @@ def start_create_plot():
 
     for i in range(plot_range):
 
-        terminal_command = f'start cmd /k'
-        #terminal_command = f'start powershell.exe -NoExit'
+        #terminal_command = f'start cmd /k'
+        terminal_command = f'start powershell.exe -NoExit'
         
         # cmd.exe
-        plot_command = terminal_command + f' ""{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t "{temp_list[i]}" -d "{final_dir}" {create_plot_log()}"'
+        #plot_command = terminal_command + f' ""{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t "{temp_list[i]}" -d "{final_dir}" {create_plot_log()}"'
 
         # powershell
-        #plot_command = terminal_command + f' "{chia}" plots create {K_size} {ram} {threads} {plot_count} {Bucket} -t \'{temp_list[i]}\' -d \'{final_dir}\''
+        plot_command = terminal_command + f' "{chia} plots create {K_size} {ram} {threads} {plot_count} {Bucket} {pool_key} -t "{temp_list[i]}" -d "{final_dir}" {create_plot_log()}"'
         
         print(f'{bcolors.OKGREEN}[ {timeNow()} ]{bcolors.ENDC} ' + plot_command)
-        #subprocess.call(plot_command, shell=True)
+        subprocess.call(plot_command, shell=True)
         i += 1
         if i >= plot_range: continue
         else: time.sleep(delay_time)
