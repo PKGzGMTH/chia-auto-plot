@@ -3,6 +3,7 @@
 This Program will generate Plot-create command(Plot in Queue) and excute in cmd.exe (in version 0.1-cmd and newer), This program will help you Create Many Plot with Delay time to create new plot function(for people who have only 1 HDD for Final directory, if you write many final file in the same time it will take too long time than write Final file one by one) 
 Now It can plotting in Only one Final Directory, it will be fixed in later.
 
+Join our community and give feedback to us : [Discord](https://discord.gg/6yp6HgWStn)
 ### Features :
 - You can set Delay time to start create new plot [Default is 15min or 900sec]
 - You can set all setting like Chia.exe but this version is Litter.
