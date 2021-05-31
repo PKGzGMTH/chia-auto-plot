@@ -1,7 +1,4 @@
-import subprocess
-import datetime
-import os
-import time
+import subprocess, datetime, os, time
 from datetime import datetime
 
 os.system('cls')
@@ -112,20 +109,20 @@ def get_K_size_setup():
 def get_ram_setup():
     # ram setting
     print(
-        f'\nPlease Enter Number {bcolors.OKGREEN}Ram{bcolors.ENDC} to use to {bcolors.OKGREEN}create Plots(per Plot){bcolors.ENDC} [Default is 4000]')
+        f'\nPlease Enter Number {bcolors.OKGREEN}Ram{bcolors.ENDC} to use to {bcolors.OKGREEN}create Plots(per Plot){bcolors.ENDC} [Default is 3400]')
     global ram
     ram = '-b '
     input_ram = input()
     if input_ram == '':
-        input_ram = int(4000)
+        input_ram = int(3400)
 
     ram_state_error = False
     try:
         input_ram = int(input_ram)
 
-        if input_ram < 2900:
+        if input_ram < 900:
             print(
-                bcolors.FAIL + 'Error, Please enter a number of ram [Least is 2900]' + bcolors.ENDC)
+                bcolors.FAIL + 'Error, Please enter a number of ram [Least is 900]' + bcolors.ENDC)
             input(bcolors.FAIL + "Press Enter to continue..." + bcolors.ENDC)
             ram_state_error = True
             os.close()
