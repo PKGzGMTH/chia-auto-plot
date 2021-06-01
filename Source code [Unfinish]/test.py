@@ -24,15 +24,46 @@ time.sleep(2)
 print("SUCCESS!")
 '''
 
-# read log line(?) FAIL
-'''
-f = open('D:\.github\chia-auto-plot\Source code [Unfinish]\Chia-Auto-Plot-27-05-21T22-44-18.txt','r')
-log = f.read()
-f.close()
-line_count = (log.count('\n') + 1)
-print(line_count)
+
+'''working_log = ['test.txt']
+def get_log_process():
+    f = open(f'D:\\.github\\chia-auto-plot\\Source code [Unfinish]\\{working_log[0]}','r')
+    log = f.read()
+    f.close()
+    line_count = (log.count('\n')+1)
+    print(f'total line is of this log : {line_count}')
+    line = 0
+    # Get num of Bucket split to line
+    for i in log.split("\n"):
+        line += 1
+        if 'buckets' in i:
+            print(i.strip())
+            buckets = i.split(' ')[1]
+            print(f'Bucket is {buckets}')
+        if 'Starting phase' in i:
+            print(line)
+            
+
+get_log_process()'''
+
+data = [['a', 'b', 'c'], ['aaaaaaaaaaaaaaaaaaaaaaaaaa', 'b', 'c'], ['a', 'bbbbbbbbbb', 'csdfaseav']]
+
+col_width = max(len(word) for row in data for word in row) + 2  # padding
+for row in data:
+    print ("".join(word.ljust(col_width) for word in row))
+
+    
+''' calculate total line in .txt
+    P1 = 4 + (129(buckets) 2) + 1
+    P2 = 34
+    P3 = 2 + 
+    P4 =
+    Finish = line_count = (log.count('Renamed final file from'))
+
 '''
 
+
+'''
 # list final directory unFinish
 stop_list = []
 final_list = []
@@ -51,4 +82,4 @@ print(final_list)
 print(stop_list)
 
 for i in stop_list:
-    print(final_list[i-1])
+    print(final_list[i-1])'''
