@@ -1,3 +1,6 @@
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/PKGzGMTH/Chia-auto-plot?color=informational&include_prereleases&style=for-the-badge)
+![GitHub all releases](https://img.shields.io/github/downloads/PKGzGMTH/Chia-auto-plot/total?style=for-the-badge&color=brightgreen)
+![GitHub last commit](https://img.shields.io/github/last-commit/PKGzGMTH/Chia-auto-plot?style=for-the-badge)
 ![alt text](https://github.com/PKGzGMTH/chia-auto-plot/blob/master/github%20banner.png)
 # Chia Auto Plot
 This Program will generate Plot-create command(Plot in Queue) and excute in cmd.exe (in version 0.1-cmd and newer), This program will help you Create Many Plot with Delay time to create new plot function(for people who have only 1 HDD for Final directory, if you write many final file in the same time it will take too long time than write Final file one by one) 
