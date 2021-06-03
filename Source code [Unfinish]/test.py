@@ -46,11 +46,11 @@ def get_log_process():
 
 get_log_process()'''
 
-data = [['a', 'b', 'c'], ['aaaaaaaaaaaaaaaaaaaaaaaaaa', 'b', 'c'], ['a', 'bbbbbbbbbb', 'csdfaseav']]
+'''data = [['a', 'b', 'c'], ['aaaaaaaaaaaaaaaaaaaaaaaaaa', 'b', 'c'], ['a', 'bbbbbbbbbb', 'csdfaseav']]
 
 col_width = max(len(word) for row in data for word in row) + 2  # padding
 for row in data:
-    print ("".join(word.ljust(col_width) for word in row))
+    print ("".join(word.ljust(col_width) for word in row))'''
 
     
 ''' calculate total line in .txt
@@ -63,23 +63,36 @@ for row in data:
 '''
 
 
-'''
-# list final directory unFinish
+# list final directory Finish!! Wryyyyyyy
 stop_list = []
 final_list = []
-final_dir = ['a','b','c']
-final_count = [4,5,3]
-stop_count = 0
+final_dir = ['C:\\','D:\\','E:\\']
+final_count = [3,5,2]
+temp_count = 4
+
+for i in range(len(final_dir)):
+    print(final_dir[i])
+
 for i in range(max(final_count)):
-    for i in range(len(final_count)):
+    for i in range(len(final_dir)):
         if final_count[i] > 0:
-            final_list += final_dir[i]
+            final_list.append(final_dir[i])
             final_count[i] = final_count[i] - 1
-            stop_count+=1
-    stop_list.append(stop_count)
+print(f'\n{final_list}\n')
+#print(final_list[2:8])
 
-print(final_list)
-print(stop_list)
+creat_plot_list = []
+working_plot = []
 
-for i in stop_list:
-    print(final_list[i-1])'''
+while final_list != []:
+    # logic 1
+    for i in range(len(final_list)):
+        if final_list[0] not in working_plot:
+            working_plot.append(final_list[0])
+            final_list.pop(0)
+        elif final_list[0]  in working_plot:
+            print(working_plot)
+            working_plot.clear()
+            break
+        if final_list == []:
+            print(working_plot)
